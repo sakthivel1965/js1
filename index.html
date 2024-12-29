@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTRATION FORM</title>
+    <style>
+        body {
+            font-family: "Gill Sans Extrabold", sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100hv;
+            background-color: purple;
+        }
+        .form-container {
+            background-color: rgb(184, 88, 88);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 2px solid wheat;
+            border-radius: 5px;
+        }
+        .error {
+            color: maroon;
+            font-size: 20px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: lightcoral;
+            color: rgb(15, 130, 175);
+            border: none;
+             cursor: pointer;
+        }
+        .button:hover{
+            color: blueviolet;
+            border: 2px solid black;
+        }
+        button:disabled {
+            background-color: wheat;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Registration Form</h2>
+    <form id="registrationForm">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+            <div class="error" id="nameError"></div>
+        </div>
+
+         <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <div class="error" id="passwordError"></div>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <button type="submit" id="submitBtn" disabled>Register</button>
+    </form>
+</div>
+
+<script>
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const submitBtn = document.getElementById('submitBtn');
+
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+
+    function validateForm() {
+        let isValid = true;
+
+        // Validate Name
+        if (nameInput.value.trim() === '') {
+            nameError.textContent = 'Name is required.';
+            isValid = false;
+        } else {
+            nameError.textContent = '';
+        }
+       // Validate Password
+        if (passwordInput.value.length < 8) {
+            passwordError.textContent = 'Password must be at least 8 characters long.';
+            isValid = false;
+        } else {
+            passwordError.textContent = '';
+        }
+        
+        
+        // Validate Email
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value.trim())) {
+            emailError.textContent = 'Please enter a valid email address.';
+            isValid = false;
+        } else {
+            emailError.textContent = '';
+        }
+
+       
+
+        // Enable or disable the submit button
+        submitBtn.disabled = !isValid;
+    }
+
+    // Add event listeners for real-time validation
+    nameInput.addEventListener('input', validateForm);
+    emailInput.addEventListener('input', validateForm);
+    passwordInput.addEventListener('input', validateForm);
+
+    // Prevent form submission if validation fails
+    document.getElementById('registrationForm').addEventListener('submit', (event) => {
+        event.preventDefault();
+        alert('Form submitted successfully!');
+    });
+</script>
+
+</body>
+</html>
+
+    
+   
